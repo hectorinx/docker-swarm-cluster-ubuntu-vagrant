@@ -45,13 +45,6 @@ docker service create \
     --name registry \
     $registry_image
 
-docker service create \
-  --name=viz \
-  --publish=8888:8080/tcp \
-  --constraint=node.role==manager \
-  --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
-  dockersamples/visualizer
-
 # wait for the registry to be available.
 bash -c 'while ! wget -q --spider --user vagrant --password vagrant https://registry.example.com:5000/v2/; do sleep 1; done;'
 
